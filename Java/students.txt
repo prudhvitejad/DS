@@ -1,0 +1,10 @@
+Syam 18 8.1
+Rahul 18 7.5
+Bhavya 5 9.3
+Karthi 6 9.1
+Deepika 18 9.3
+Pavan 18 9.8
+Prabhas 40 9.4
+Mahesh 44 9.4
+Balayya 62 8.9
+Munna 30 8.5
