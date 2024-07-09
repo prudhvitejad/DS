@@ -1,4 +1,6 @@
 '''
+One way of implementing LinkedList
+
 class Student:
     def __init__(self,name=None,branch=None,cgpa=None):
         self.name = name
@@ -43,7 +45,7 @@ head = new.addAtTheBeginning(new,head)
 head.display(head)
 '''
 
- 
+#Other way of implementing LinkedList 
 class Student:
     def __init__(self, name=None, branch=None, cgpa=None):
         self.name = name

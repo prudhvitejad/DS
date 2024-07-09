@@ -1,0 +1,39 @@
+1. Arrays & Strings
+    - Two Sum
+    - Valid Parenthesis
+    - Group Anagrams
+
+2. LinkedList
+    - Reverse LinkedList
+    - Merge Two Sorted Lists
+    - LinkedList Cycle
+
+3.Trees
+    - Maximum Depth of Binary Tree
+    - Validate Binary Search Tree
+    - Lowest Common Ancestor of BST
+
+4. Dynamic Programming
+    - Climbing Stairs
+    - Coin Change
+
+5. Graphs
+    - Clone Graph
+    - Course Schedule
+    - No.of Islands
+
+6. Recursion & Backtracking
+    - Subsets
+    - Permutations
+    - N Queens
+
+7. Sorting & Searching
+    - Merge Intervals
+    - Search in Rotated Sorted Array
+    - Kth Largest Element in an Array
+
+8. Design
+    - LRU Cache
+    - Implement Trie
+    - Design Twitter
+

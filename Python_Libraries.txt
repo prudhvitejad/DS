@@ -1,0 +1,29 @@
+Python + Numpy = Numerical Computation
+Python + Pandas = Data Manipulation
+
+Python + Matplotlib = Data Visualization
+Python + Seaborn = Adv. Visualization
+Python + Plotly = Interactive Visualization
+
+Python + Flask = Web Development
+Python + Django = Full Stack Web Development
+Python + FastAPI = Fast Web APIs
+
+Python + Kivy = Mobile App Development
+
+Python + Tkinter = GUI Development
+Python + Pygame = Game Development
+
+Python + BeautifulSoup = Web Scraping
+Python + Scrapy = Web Crawling
+
+Python + Scikit-Learn = Machine Learning
+Python + Tensorflow = Deep Learning
+
+Python + Keras = Neural Networks
+
+Python + OpenCV = Computer Vision
+
+Python + Pillow = Image Processing
+
+
