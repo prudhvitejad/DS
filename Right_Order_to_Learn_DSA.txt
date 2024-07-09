@@ -1,23 +1,17 @@
-Two Pointers
-Island (Matrix Traversal)
-Fast & Slow Pointers
-Sliding Window
-Merge Intervals
-Cyclic Sort
-In-place Reversal of a LinkedList
-Tree Breadth First Search
-Tree Depth First Search
-Two Heaps
-Subsets
-Modified Binary Search
-Top 'K' Elements
-Bitwise XOR
-Backtracking
-0/1 Knapsack (Dynamic Programming)
-Topological Sort (Graph)
-K-way Merge
-Monotonic Stack
-Multi-threaded
+Arrays  --->  LinkedList  ---> Stacks & Queues  --->  Hash Tables
+                                                          |
+                                                          V
+
+Searching  <---  Sorting  <---  Recursion/    <---  Two Pointers/
+                               Backtracking         Sliding Window
+    |
+    v
+
+   Bit        --->  Tree/BST/Trie  --->  Heaps  --->  Greedy
+Manipulation                                            |
+                                                        v
+
+                        Graphs/Union-Find  <---  Dynamic Programming
 
 
 
@@ -30,5 +24,6 @@ Fast & Slow Pointers - Used for problems related to finding cycles in linked lis
 Merge Intervals - Used for problems involving patterns such as merging overlapping intervals.
 
 Backtracking - Used for problems involving permutations/combinations and other scenarios where you need to explore all possible configurations.
+
 
 
