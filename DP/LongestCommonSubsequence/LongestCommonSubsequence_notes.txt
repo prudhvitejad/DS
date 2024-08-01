@@ -1,0 +1,125 @@
+Longest Common Subsequence(LCS)
+-------------------------------
+A subsequence of a string is a new string generated from the original string with some characters(can be none) deleted without changing
+the relative order of the remaining characters.
+Eg:
+1) str1 = "abcde"   str2 = "ace"
+The Longest Common Subsequence for the above 2 strings is "ace" of length 3.
+
+2) str1 = "abcdge"  str2 = "abedg"
+The Longest Common Subsequence for the above 2 strings is "abdg" of length 4.
+
+
+Longest Common Subsequence(LCS) Recursion approach
+--------------------------------------------------
+
+int LCS(String str1, int n, String str2, int m) {
+
+    if( n == 0 || m == 0 )
+        return 0;
+
+    if( str1[n-1] == str2[m-1] )    // same character
+        return 1 + LCS(str1, n-1, str2, m-1);
+    else {  //different character
+
+        int ans1 = LCS(str1, n-1, str2, m);
+        int ans2 = LCS(str1, n, str2, m-1);
+
+        return max(ans1, ans2);
+    }
+}
+
+
+Longest Common Subsequence(LCS) Bottom Up approach
+--------------------------------------------------
+
+int LCSTabulation(String str1, String str2) {
+
+    int n = len(str1);
+    int m = len(str2);
+    int dp[][] = int[n+1][m+1];
+
+    for(int i=0;i<n+1;i++)
+        dp[i][0] = 0;
+    
+    for(int j=0;j<m+1;j++)
+        dp[0][j] = 0;
+
+    for(int i=1;i<n+1;i++) {
+        for(int j=1;j<m+1;j++) {
+
+            if(str1[i-1] == str2[j-1])
+                dp[i][j] = 1 + dp[i-1][j-1];
+            else {
+                int ans1 = dp[i-1][j];
+                int ans2 = dp[i][j-1];
+
+                dp[i][j] = max(ans1, ans2);
+            }
+        }
+    }
+    return dp[n][m];
+} 
+
+
+
+Edit Distance
+--------------
+How much changes/distance/length is required to convert the string1 to string2 by adding or deleting or replacing the character is called Edit Distance.
+Eg:
+str1 = "abc"    str2 = "sbd"
+
+a -> s => a should be replaced with s
+b -> b => no change required
+c -> d => c should be replaced with d
+
+So Edit Distance is 2.
+
+
+Edit Distance Bottom Up approach
+--------------------------------
+
+int editDistance(String str1, String str2) {
+
+    int n = len(str1);
+    int m = len(str2);
+    int dp[][] = int[n+1][m+1];
+
+    //initialize
+    for(int i=0;i<n+1;i++)
+        dp[i][0] = i;
+    
+    for(int j=0;j<m+1;j++)
+        dp[0][j] = j;
+
+    //bottom up
+    for(int i=1;i<n+1;i++) {
+        for(int j=1;j<m+1;j++) {
+
+            if( str1[i-1] == str2[j-1] )    //same
+                dp[i][j] = dp[i-1][j-1];
+            else {  //different
+
+                int add = 1 + dp[i][j-1];   //add
+                int del = 1 + dp[i-1][j];   //del
+                int rep = 1 + dp[i-1][j-1]; //replace
+
+                dp[i][j] = min(add, del, rep);
+            }
+        }
+    }
+    return dp[n][m];
+}
+
+
+
+Longest Common Substring
+------------------------
+A substring is a contiguous sequence of characters within a string.
+Eg:
+1) S1 = "ABCDE"     S2="ABCGE"
+The Longest Common SubsTRING for the above 2 strings is "AB" of length 2.
+
+2) S1 = "ABCDGH"    S2="ACDGHR";
+The Longest Common Substring for the above 2 strings is "CDGH" of length 4.
+

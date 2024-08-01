@@ -1,0 +1,126 @@
+Given a rod of length n inches and an array of prices that includes prices of all pieces of size smaller than n.
+Determine the maximum value obtainable by cutting up the rod and selling the pieces.
+
+length = 1 2 3 4 5 6 7 8
+price = 1 5 8 9 10 17 17 20
+rodLength = 8
+
+
+Rod Cutting Normal/bruteforce approach
+--------------------------------------
+
+int rodCuttingRecursive(int length[], int price[], int rodLength, int n) {
+    
+    //if the remaining rod length is 0 or no more pieces to consider
+    if (rodLength == 0 || n == 0)
+        return 0;
+
+    if (length[n-1] <= rodLength) {
+        
+        // Profit by including the current length piece
+        int include = price[n-1] + rodCuttingRecursive(length, price, rodLength - length[n-1], n);
+        
+        // Profit by excluding the current length piece
+        int exclude = rodCuttingRecursive(length, price, rodLength, n - 1);
+        
+        return max(include, exclude);
+    } 
+    else {
+        // Current length piece can't be included
+        return rodCuttingRecursive(length, price, rodLength, n - 1);
+    }
+}
+
+int length[] = {1, 2, 3, 4, 5, 6, 7, 8};
+int price[] = {1, 5, 8, 9, 10, 17, 17, 20};
+int rodLength = 8;
+int n = sizeof(length) / sizeof(length[0]);
+
+rodCuttingRecursive(length, price, rodLength, n);
+
+
+Rod Cutting Top-down approach
+-----------------------------
+
+
+int rodCuttingTopDown(int length[], int price[], int rodLength, int n, int dp[][9]) {
+    
+    //if the remaining rod length is 0 or no more pieces to consider
+    if (rodLength == 0 || n == 0)
+        return 0;
+
+    // If the value is already computed, return it
+    if (dp[n][rodLength] != -1)
+        return dp[n][rodLength];
+
+    if (length[n-1] <= rodLength) {
+        
+        // Profit by including the current length piece
+        int include = price[n-1] + rodCuttingTopDown(length, price, rodLength - length[n-1], n, dp);
+        
+        // Profit by excluding the current length piece
+        int exclude = rodCuttingTopDown(length, price, rodLength, n - 1, dp);
+        
+        dp[n][rodLength] = max(include, exclude);
+    } 
+    else {
+        // Current length piece can't be included
+        dp[n][rodLength] = rodCuttingTopDown(length, price, rodLength, n - 1, dp);
+    }
+
+    return dp[n][rodLength];
+}
+
+int length[] = {1, 2, 3, 4, 5, 6, 7, 8};
+int price[] = {1, 5, 8, 9, 10, 17, 17, 20};
+int rodLength = 8;
+int n = sizeof(length) / sizeof(length[0]);
+
+int dp[][] = int[n+1][rodLength+1];
+
+rodCuttingTopDown(length, price, rodLength, n, dp);
+
+
+Rod Cutting Bottom-up approach
+------------------------------
+
+int rodCutting(int length[], int price[], int totRodLen) {
+
+    int n = len(price);
+    int dp[][] = int[n+1][totRodLen+1];
+
+    for(int i=0;i<n+1;i++)
+        dp[i][0] = 0;
+    
+    for(int j=0;j<totRodLen+1;j++)
+        dp[0][j] = 0;
+
+    for(int i=1;i<n+1;i++) {
+        for(int j=1;j<totRodLen+1;j++) {
+
+            int v = price[i-1];   //value or price of ith item(rod)
+            int w = length[i-1];    //weight or length of ith item(rod)
+
+            if( w <= j ) {   //valid (w <= j  <=> length[i-1] <= j)
+
+                //profit by including the item
+                int ans1 = v + dp[i][j-w];
+
+                //profit by excluding the item
+                int ans2 = dp[i-1][j];
+
+                dp[i][j] = max(ans1, ans2);
+            }
+            else {  //invalid
+                
+                //profit by excluding the item
+                dp[i][j] = dp[i-1][j];
+            }
+        }
+    }
+    return dp[n][totRodLen];
+}
+
+
+
+

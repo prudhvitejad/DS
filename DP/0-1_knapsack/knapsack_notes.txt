@@ -1,0 +1,364 @@
+Knapsack = bag
+
+Knapsack
+--------
+We will have a bag and we will mention the bag weight like how much weight it can hold.
+We can have items like laptop, phone, tablet, pencil, book etc and we can have their weights as well along with their values and 
+we have to find the total max profit by placing the items inside the Knapsack upto the weight of Knapsack it can hold.
+
+
+In 0-1 Knapsack, we have to put an item fully or else we shouldn't have to keep it inside the Knapsack(bag) and 
+in 0-1 knapsack we can keep 1 item inside the knapsack 1 time only.
+
+In Fractional Knapsack, we can put some portion of item as well inside the knapsack so that we can get more profit.
+
+In Unbounded Knapsack, we can keep an item as many times as we can/wish inside the knapsack upto the weight of Knapsack it can hold.
+
+Eg:
+item    wt  val
+fridge  10  100
+laptop  5   50 
+phone   2   30
+tablet  1   25
+pencil  0.5 5
+book    1   15
+pen     1   3
+
+W(weight of Knapsack it can hold) is 10 then find max profit by all 3 versions of Knapsack ?
+
+0-1 Knapsack -> 125         Fractional Knapsack -> 126.5        Unbounded Knapsack -> 150
+
+laptop  5   50              laptop  5   50                      phone  2   30
+phone   2   30              phone   2   30                      phone  2   30
+tablet  1   25              tablet  1   25                      phone  2   30
+book    1   15              book    1   15                      phone  2   30
+pencil  0.5  5              pencil  0.5  5                      phone  2   30
+                            pen     0.5 1.5                     phone  2   30
+
+------------------------------------------------------------------------------------------------------------------------------
+
+n -> total no.of items (length of the list of given values/weight array) -> indicates rows in 2D DP array
+W -> total allowed weight in knapsack -> indicates columns in 2D DP array
+val[] -> values of items respectively
+wt[] -> weights of items respectively
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+0-1 Knapsack normal/bruteforce approach
+---------------------------------------
+
+int knapsack(int val[], int wt[], int W, int n) {
+
+    if(W == 0 || n == 0)
+        return 0;
+    
+    if( wt[n-1] <= W ) {    //valid
+
+        //profit by including the item
+        int ans1 = val[n-1] + knapsack(val, wt, W-wt[n-1], n-1);
+
+        //profit by excluding the item
+        int ans2 = knapsack(val, wt, W, n-1);
+
+        return max(ans1, ans2);
+    }
+    else {  //not valid
+
+        //profit by excluding the item
+        return knapsack(val, wt, W, n-1);
+    }
+}
+
+n = len(val)
+knapsack(val, wt, W, n);
+
+
+0-1 Knapsack Top-down approach
+------------------------------
+
+int knapsack(int val[], int wt[], int W, int n, int dp[][]) {
+
+    if(W == 0 || n == 0)
+        return 0;
+    
+    if( dp[n][W] != -1 )
+        return dp[n][W];
+
+    if( wt[n-1] <= W ) {    //valid
+
+        //profit by including the item
+        int ans1 = val[n-1] + knapsack(val, wt, W-wt[n-1], n-1, dp);
+
+        //profit by excluding the item
+        int ans2 = knapsack(val, wt, W, n-1, dp);
+
+        dp[n][W] = max(ans1, ans2);
+        return dp[n][W];
+    }
+    else {  //not valid
+
+        //profit by excluding the item
+        dp[n][W] = knapsack(val, wt, W, n-1, dp);
+        return dp[n][W];
+    }
+}
+
+int n = len(val);   //total no.of items
+int dp[][] = int[n+1][W+1];
+knapsack(val, wt, W, n, dp);
+
+
+0-1 Knapsack Bottom-up approach
+-------------------------------
+
+int knapsack(int val[], int wt[], int W) {
+
+    int n = len(val);   //total no.of items
+    int dp[][] = int[n+1][W+1];
+
+    // i -> items & j -> weight of knapsack
+
+    for(int i=0;i<n+1;i++)
+        dp[i][0] = 0;
+    
+    for(int j=0;j<W+1;j++)
+        dp[0][j] = 0;
+    
+    for(int i=1;i<n+1;i++) {
+        for(int j=1;j<W+1;j++) {
+
+            int v = val[i-1];   //value of ith item
+            int w = wt[i-1];    //weight of ith item
+
+            if( w <= j ) {  //valid (w <= j  <=> wt[i-1] <= j)
+
+                //profit by including the item
+                int ans1 = v + dp[i-1][j-w];
+
+                //profit by excluding the item
+                int ans2 = dp[i-1][j];
+
+                dp[i][j] = max(ans1, ans2);
+            }
+            else {  //invalid
+
+                //profit by excluding the item
+                dp[i][j] = dp[i-1][j];
+            }
+        }
+    }
+    return dp[n][W];
+}
+
+knapsack(val, wt, W);
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+TargetSum Subset - Variation of 0-1 knapsack
+
+Similarities with 0-1 knapsack
+------------------------------
+1. Choice of elements
+2. Limit on max allowed capcity
+3. val = wt (val of each item is its weight)
+
+-> 2D array would be => dp[n+1][sum+1];
+        where n -> n items
+              sum -> total sum
+
+In 0-1 Knapsack, we store the quantity(max of profit) in DP array & in Target Sum Subset we store T/F.
+
+
+TargetSumSubset Normal/Bruteforce Approach
+------------------------------------------
+
+// Function to check if there is a subset with sum equal to the target
+bool targetSumSubset(int arr[], int n, int sum) {
+    
+    if (sum == 0) 
+        return true;
+    if (n == 0)
+        return false;
+
+    // If the current element is greater than the sum, skip it
+    if (arr[n-1] > sum) {
+        return targetSumSubset(arr, n-1, sum);
+    }
+
+    // Check if the sum can be obtained by including the current element
+    int wt = arr[n-1];
+    bool include = targetSumSubset(arr, n-1, sum - wt );
+
+    // Check if the sum can be obtained by excluding the current element
+    bool exclude = targetSumSubset(arr, n-1, sum);
+
+    // Return true if either including or excluding the element gives the sum
+    return include || exclude;
+}
+
+int arr[] = {10, 5, 2, 1, 0.5, 1, 1};
+int sum = 10;
+int n = sizeof(arr) / sizeof(arr[0]);
+    
+targetSumSubset(arr, n, sum);
+
+
+TargetSumSubset Top-down Approach
+---------------------------------
+
+
+// Function to check if there is a subset with sum equal to the target using memoization
+bool targetSumSubset(int arr[], int n, int sum, bool dp[][]) {
+
+    if (sum == 0)
+        return true;
+    if (n == 0)
+        return false;
+
+    // If the value is already computed, return it
+    if (dp[n][sum] != -1)
+        return dp[n][sum];
+
+    // If the current element is greater than the sum, skip it
+    if (arr[n-1] > sum) {
+        dp[n][sum] = targetSumSubset(arr, n-1, sum, dp);
+        return dp[n][sum];
+    }
+
+    // Check if the sum can be obtained by including the current element
+    bool include = targetSumSubset(arr, n-1, sum - arr[n-1], dp);
+
+    // Check if the sum can be obtained by excluding the current element
+    bool exclude = targetSumSubset(arr, n-1, sum, dp);
+
+    // Store and return true if either including or excluding the element gives the sum
+    dp[n][sum] = include || exclude;
+    return dp[n][sum];
+}
+
+
+int arr[] = {10, 5, 2, 1, 0.5, 1, 1};
+int sum = 10;
+int n = sizeof(arr) / sizeof(arr[0]);
+boolean dp[][] = boolean[][];
+    
+targetSumSubset(arr, n, sum, dp);
+
+
+
+TargetSumSubset Bottom-up Approach
+----------------------------------
+
+boolean targetSumSubset(int arr[], int sum) {
+
+    int n = len(arr);   //total no.of items
+    boolean dp[][] = boolean[n+1][sum+1];   // will get false in columns by default
+
+    // i -> items & j -> target sum
+
+    for(int i=0;i<n+1;i++)  // if target sum is 0 then we will get true by default
+        dp[i][0] = true;
+    
+    for(int i=1;i<n+1;i++) {
+        for(int j=1;j<sum+1;j++) {
+
+            int v = arr[i-1];   //value of ith item (v = W i.e., val of each item is its weight)
+
+            //getting the exact target sum by including the value
+            if( v <= j && d[i-1][j-v] == true )
+                dp[i][j] = true;
+
+            //getting the exact target sum by excluding the value
+            else if( dp[i-1][j] == true )
+                dp[i][j] = true;
+        }
+    }
+    return dp[n][sum];
+}
+
+targetSumSubset(arr, sum);
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Unbounded Knapsack Top-down approach
+------------------------------------
+
+int unboundedKnapsack(int val[], int wt[], int W, int n, int dp[][]) {
+
+    if(W == 0 || n == 0)
+        return 0;
+    
+    if( dp[n][W] != -1 )
+        return dp[n][W];
+
+    if( wt[n-1] <= W ) {    //valid
+
+        //profit by including the item
+        int ans1 = val[n-1] + unboundedKnapsack(val, wt, W-wt[n-1], n, dp);
+
+        //profit by excluding the item
+        int ans2 = unboundedKnapsack(val, wt, W, n-1, dp);
+
+        dp[n][W] = max(ans1, ans2);
+        return dp[n][W];
+    }
+    else {  //not valid
+
+        //profit by excluding the item
+        dp[n][W] = knapsack(val, wt, W, n-1, dp);
+        return dp[n][W];
+    }
+}
+
+int n = len(val);   //total no.of items
+int dp[][] = int[n+1][W+1];
+unboundedKnapsack(val, wt, W, n, dp);
+
+
+Unbounded Knapsack Bottom-up approach
+-------------------------------------
+
+int unboundedKnapsack(int val[], int wt[], int W) {
+
+    int n = len(val);   //total no.of items
+    int dp[][] = int[n+1][W+1];
+
+    // i -> items & j -> weight of knapsack
+
+    for( int i=0;i<n+1;i++)
+        dp[i][0] = 0;
+    
+    for(int j=0;j<W+1;j++)
+        dp[0][j] = 0;
+    
+    for(int i=1;i<n+1;i++) {
+        for(int j=1;j<W+1;j++) {
+
+            int v = val[i-1];   //value of ith item
+            int w = wt[i-1];    //weight of ith item
+
+            if( w <= j ) {  //valid (w <= j  <=> wt[i-1] <= j)
+
+                //profit by including the item
+                int ans1 = v + dp[i][j-w];
+
+                //profit by excluding the item
+                int ans2 = dp[i-1][j];
+
+                dp[i][j] = max(ans1, ans2);
+            }
+            else {  //invalid
+
+                //profit by excluding the item
+                dp[i][j] = dp[i-1][j];
+            }
+        }
+    }
+    return dp[n][W];
+}
+
+
+
+
+

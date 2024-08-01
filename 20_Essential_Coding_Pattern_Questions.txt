@@ -7,10 +7,13 @@ Cyclic Sort
 In-place Reversal of a LinkedList
 Tree Breadth First Search
 Tree Depth First Search
+Modified Binary Search
 Two Heaps
 Subsets
+Prefix Sum
 Modified Binary Search
 Top 'K' Elements
+Overlapping Intervals
 Bitwise XOR
 Backtracking
 0/1 Knapsack (Dynamic Programming)
