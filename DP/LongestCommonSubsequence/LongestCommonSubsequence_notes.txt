@@ -45,6 +45,7 @@ int LCSTabulation(String str1, String str2) {
     for(int j=0;j<m+1;j++)
         dp[0][j] = 0;
 
+    //bottom up
     for(int i=1;i<n+1;i++) {
         for(int j=1;j<m+1;j++) {
 
@@ -118,8 +119,111 @@ Longest Common Substring
 A substring is a contiguous sequence of characters within a string.
 Eg:
 1) S1 = "ABCDE"     S2="ABCGE"
-The Longest Common SubsTRING for the above 2 strings is "AB" of length 2.
+The Longest Common Substring for the above 2 strings is "AB" of length 2.
 
 2) S1 = "ABCDGH"    S2="ACDGHR";
 The Longest Common Substring for the above 2 strings is "CDGH" of length 4.
+
+
+(i,j) -> i represents i len of string1 and j represents j len of string2.
+dp[i][j] -> stores the length of LCS(i,j) in dp[i][j] index.
+
+
+Longest Common Substring Bottom Up approach
+-------------------------------------------
+
+int longestCommonSubstring(String str1, String str2) {
+    
+    int n = len(str1);
+    int m = len(str2);
+    int dp[][] = int[n+1][m+1];
+    int ans;
+
+    //initialize
+    for(int i=0;i<n+1;i++)
+        dp[i][0] = 0;
+    
+    for(int j=0;j<m+1;j++)
+        dp[0][j] = 0;
+
+    //bottom up
+    for(int i=1;i<n+1;i++) {
+        for(int j=1;j<m+1;j++) {
+
+            if(str1[i-1] == str2[j-1])
+            {
+                dp[i][j] = 1 + dp[i-1][j-1];
+                ans = max(ans, dp[i][j]);
+            }
+            else
+            {
+                dp[i][j] = 0;
+            }
+        }
+    }
+    return ans;  
+}
+
+
+
+Longest Increasing Subsequence (Sorted + Ascending)
+------------------------------
+The length of the Longest Sorted Ascending (increasing) sequence in an array.
+
+Eg: arr = [50, 3, 10, 7, 40, 80], Length of LIS = 4 ({3, 10, 40, 80}, {3, 7, 40, 80})
+
+
+Eg:
+(i)  1 2 3 4 -  True
+(ii) 1 2 2 3 -  False
+
+
+int LIS(int arr1[], int arr2[]) {
+    
+    int n = len(arr1);
+    int m = len(arr2);
+    int dp[][] = new int[n+1][m+1];
+
+    //initialize
+    for(int i=0;i<n+1;i+)
+        dp[i][0] = 0;
+
+    for(int j=0;j<m+1;j++)
+        dp[0][j] = 0;
+
+    //bottom up
+    for(int i=1;i<n+1;i++) {
+        for(int j=1;j<m+1;j++) {
+            if(arr1[i-1] == arr2[j-1])
+                dp[i][j] = dp[i-1][j-1] + 1;
+            else
+            {
+                int ans1 = dp[i-1][j];
+                int ans2 = dp[i][j-1];
+                dp[i][j] = max(ans1, ans2);
+            }
+        }
+    }
+    return dp[n][m];
+}
+
+
+int LIS(int arr1[]) {
+    
+    HashSet<Integer> set = new HashSet<>();     //To remove duplicates and store unique values of arr
+    for(int i=0;i<len(arr2);i++)
+        set.add(arr1[i]);
+
+    int arr2[] = new int[set.size()];   //To store sorted unique elements
+    int i=0;
+    for(int num: set) {
+        arr2[i] = num;
+        i++;
+    }
+
+    Arrays.sort(arr2);
+    return LIS(arr1, arr2);
+}
+
+
 

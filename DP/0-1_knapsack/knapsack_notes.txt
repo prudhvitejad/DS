@@ -157,6 +157,9 @@ knapsack(val, wt, W);
 
 TargetSum Subset - Variation of 0-1 knapsack
 
+In TargetSum Subset, we check if there is a subset with sum equal to the target
+
+
 Similarities with 0-1 knapsack
 ------------------------------
 1. Choice of elements
