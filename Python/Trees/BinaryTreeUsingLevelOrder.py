@@ -48,7 +48,8 @@ class BinaryTree:
         self.root = None
     
     '''
-        We use Level Order traversal logic to add/insert the nodes to the binary tree.
+        #We use Level Order traversal logic to add/insert the nodes to the binary tree.
+        
         if root is Null
             then new node become root
         else
@@ -103,8 +104,8 @@ class BinaryTree:
     """
         In the recursive version, a stack is required as we need to remember the current node so that after completing 
         the left subtree we can go to the right subtree. To simulate the same, first we process the current node and 
-        before going to the left subtree, we store the current node on slack. After completing the lcfl subtree processing, 
-        pop the clemc nl nnd go to its right s ubtree. Continue lhis process until slack is non-empty. 
+        before going to the left subtree, we store the current node on stack. After completing the left subtree processing, 
+        pop the element nnd go to its right subtree. Continue this process until stack is non-empty. 
     """
     def preOrderIterative(self):
         if(self.root is not None):
