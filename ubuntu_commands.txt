@@ -1,0 +1,72 @@
+nm-connection-editor
+
+sudo apt install build-esssential
+
+python -mSimpleHTTPServer
+
+sudo apt install gnome-session gdm3
+
+sudo apt install gnome-shell-extensions gnome-shell-extension-dash-to-panel gnome-tweaks adwaita-icon-theme-full
+
+nano ~/   (or)  nano
+
+xrandr --output eDP --brightness 0.7
+
+sudo nautilus							// To paste a file in root directory
+
+nmtui
+
+sudo apt autoremove applicationname		// to uninstall particular application
+
+sudo rm /var/lib/dpkg/lock-frontend   	// to remove the directories
+
+sudo dpkg -i filename					// to install using deb file
+
+sudo -f install 						//for some applications
+
+zip -r ubuntu.zip ubuntu latex     		// to zip the folders
+
+zip -r -P 123456  ubuntu.zip latex pawankalyan_pics		// zipping folders with 123456 as password
+
+zip -r -e latex.zip latex         						// zipping folders with any password
+
+nsloopup    					  						//to know ip address of any website.Then type as 'google.com' etc.
+
+wget -r -x -k http://10.30.20.100:8000/					// to download the unzipped folder directly without zipping from the certain ip address
+
+gcc -save-temps hello.c				// To see the temporary files created when compiling
+
+g++ -save-temps hello.cpp			// To see the temporary files created when compiling
+
+sudo -H gedit /etc/wgetrc			
+
+wget -r -l 5 "https://www.w3schools.com/bootstrap4"		// To save website offline
+
+=> Mark all the repositories those want to be updated and unmark all the repositories those need not to be updated.(Software & updates application)
+
+killall java								// to terminate java jar file
+
+jar -cvf helloworld.jar helloworld			// Creates a jar file and helloworld directory should be in the compiling directory
+
+jar -cvf helloworld.war helloworld			// Creates a war file and helloworld directory should be in the compiling directory
+											// (cvf - create verbose-mode named-file)
+
+cd .. 										//Changes directory to parent(i.e., folder before current working directory)
+
+cd ../..									//Changes directory to Grand-Parent(i.e., 2 folders before current working directory)
+
+cd / 										//Changes directory to root folder(i.e., bin,etc,apt etc.,)
+
+javac -cp path1 ; path2 ; path3 name.java	//(First searches in path1 if required .class file is not in path1 then searches in the path2 and then 													searches in path3)
+
+sudo apt install mysql-server 				// To install mysql
+
+sudo mysql -u root -p 						// To open mysql in terminal
+
+sudo -H gedit /etc/apt/apt.conf			//for proxy configuration
+
+
+
+
+
+
