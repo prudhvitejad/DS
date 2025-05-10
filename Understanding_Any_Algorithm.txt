@@ -1,0 +1,9 @@
+To understand an algorithm:
+  1. Understand the problem it solves 
+  2. Understand the logic behind it 
+  3. Understand its steps
+  4. Visualize some examples
+  5. Understand the implementation 
+  6. Understand the proof of correctness 
+  7. Understand its complexity analysis 
+  8. Understand when to use it
